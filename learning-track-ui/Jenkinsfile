@@ -1,0 +1,72 @@
+pipeline {
+
+    agent any
+
+    tools {
+
+        nodejs 'NodeJS22'
+
+    }
+
+    stages {
+
+        stage('Checkout') {
+
+            steps {
+
+                git branch: 'main',
+                    url: 'https://github.com/akhileshkumar4953/learning-track-ui.git'
+
+            }
+
+        }
+
+        stage('Install Dependencies') {
+
+            steps {
+
+                bat 'npm install'
+
+            }
+
+        }
+
+        stage('Angular Build') {
+
+            steps {
+
+                bat 'npm run build'
+
+            }
+
+        }
+
+        stage('Docker Build') {
+
+            steps {
+
+                bat 'docker build -t learning-track-ui .'
+
+            }
+
+        }
+
+    }
+
+    post {
+
+        success {
+
+            echo 'Angular Build Successful'
+
+        }
+
+        failure {
+
+            echo 'Angular Build Failed'
+
+        }
+
+    }
+
+}

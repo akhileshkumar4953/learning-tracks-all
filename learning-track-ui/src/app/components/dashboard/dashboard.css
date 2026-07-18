@@ -1,0 +1,55 @@
+.card{
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.progress{
+
+    height:22px;
+
+    border-radius:20px;
+
+}
+
+.progress-bar{
+
+    font-weight:bold;
+
+}
+
+.badge{
+
+    font-size:14px;
+
+    padding:8px 12px;
+
+}
+
+.btn{
+
+    min-width:75px;
+
+}
+
+input{
+
+    border-radius:25px;
+
+}
+
+.card-header{
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}

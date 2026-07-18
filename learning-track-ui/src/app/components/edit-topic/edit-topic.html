@@ -1,0 +1,74 @@
+<h2>Edit Topic</h2>
+
+<hr>
+
+<form [formGroup]="topicForm" (ngSubmit)="update()">
+
+  <label>Title</label>
+
+  <input
+      type="text"
+      formControlName="title">
+
+  <br><br>
+
+  <label>Category</label>
+
+  <input
+      type="text"
+      formControlName="category">
+
+  <br><br>
+
+  <label>Status</label>
+
+  <select formControlName="status">
+
+    <option>TODO</option>
+
+    <option>IN_PROGRESS</option>
+
+    <option>COMPLETED</option>
+
+  </select>
+
+  <br><br>
+
+  <label>Priority</label>
+
+<select class="form-select" formControlName="status">
+
+    <option value="NOT_STARTED">Not Started</option>
+
+    <option value="IN_PROGRESS">In Progress</option>
+
+    <option value="COMPLETED">Completed</option>
+
+</select>
+
+  <br><br>
+
+  <label>Progress</label>
+
+  <input
+      type="number"
+      formControlName="progress">
+
+  <br><br>
+
+  <label>Notes</label>
+
+  <textarea
+      rows="5"
+      formControlName="notes">
+  </textarea>
+
+  <br><br>
+
+  <button type="submit">
+
+      Update Topic
+
+  </button>
+
+</form>

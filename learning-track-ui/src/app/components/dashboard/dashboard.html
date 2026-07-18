@@ -1,0 +1,221 @@
+<div class="container mt-4">
+
+    <h2 class="text-primary mb-4">
+        📚 Learning Track Dashboard
+    </h2>
+
+    <!-- Dashboard Cards -->
+
+    <div class="row mb-4">
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card bg-primary text-white shadow">
+
+                <div class="card-body">
+
+                    <h6>Total Topics</h6>
+
+                    <h2>{{totalTopics}}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card bg-success text-white shadow">
+
+                <div class="card-body">
+
+                    <h6>Completed</h6>
+
+                    <h2>{{completedTopics}}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card bg-warning text-dark shadow">
+
+                <div class="card-body">
+
+                    <h6>In Progress</h6>
+
+                    <h2>{{inProgressTopics}}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card bg-danger text-white shadow">
+
+                <div class="card-body">
+
+                    <h6>Pending</h6>
+
+                    <h2>{{pendingTopics}}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-body">
+
+            <input
+                type="text"
+                class="form-control"
+                placeholder="🔍 Search Topic..."
+                [(ngModel)]="searchText"
+                (keyup)="searchTopics()">
+
+        </div>
+
+    </div>
+
+    <!-- Topics -->
+
+    <div class="card shadow">
+
+        <div class="card-header bg-dark text-white">
+
+            Topics
+
+        </div>
+
+        <div class="card-body table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th width="220">Progress</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let topic of filteredTopics">
+
+                        <td>{{topic.id}}</td>
+
+                        <td>{{topic.title}}</td>
+
+                        <td>{{topic.category}}</td>
+
+                        <td>
+
+                            <span
+                                class="badge"
+                                [ngClass]="{
+
+                                'bg-success':topic.status=='COMPLETED',
+
+                                'bg-warning text-dark':topic.status=='IN_PROGRESS',
+
+                                'bg-secondary':topic.status=='NOT_STARTED'
+
+                                }">
+
+                                {{topic.status}}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="badge"
+                                [ngClass]="{
+
+                                'bg-danger':topic.priority=='HIGH',
+
+                                'bg-warning text-dark':topic.priority=='MEDIUM',
+
+                                'bg-info':topic.priority=='LOW'
+
+                                }">
+
+                                {{topic.priority}}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+
+                                    [style.width.%]="topic.progress">
+
+                                    {{topic.progress}}%
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-warning btn-sm me-2"
+                                (click)="editTopic(topic.id)">
+
+                                Edit
+
+                            </button>
+
+                            <button
+                                class="btn btn-danger btn-sm"
+                                (click)="deleteTopic(topic.id)">
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

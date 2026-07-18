@@ -3,11 +3,9 @@ pipeline {
     agent any
 
     tools {
-
         jdk 'JDK21'
         maven 'Maven3.9'
         nodejs 'NodeJS22'
-
     }
 
     stages {
@@ -16,8 +14,7 @@ pipeline {
 
             steps {
 
-                git branch: 'main',
-                    url: 'https://github.com/akhileshkumar4953/learning-tracks-all.git'
+                checkout scm
 
             }
 
@@ -63,19 +60,31 @@ pipeline {
 
         }
 
+        stage('Deploy') {
+
+            steps {
+
+                bat 'docker compose down'
+
+                bat 'docker compose up -d'
+
+            }
+
+        }
+
     }
 
     post {
 
         success {
 
-            echo 'Full Stack Build Successful'
+            echo 'Application Successfully Deployed'
 
         }
 
         failure {
 
-            echo 'Full Stack Build Failed'
+            echo 'Deployment Failed'
 
         }
 

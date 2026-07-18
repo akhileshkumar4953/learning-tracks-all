@@ -17,7 +17,7 @@ pipeline {
             steps {
 
                 git branch: 'main',
-                    url: 'https://github.com/akhileshkumar4953/learning-track.git'
+                    url: 'https://github.com/akhileshkumar4953/learning-tracks-all.git'
 
             }
 

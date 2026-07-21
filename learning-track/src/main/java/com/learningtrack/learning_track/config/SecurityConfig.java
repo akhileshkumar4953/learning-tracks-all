@@ -2,7 +2,6 @@ package com.learningtrack.learning_track.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -29,30 +28,30 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+                .csrf(csrf -> csrf.disable())
 
-            .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
 
-            .cors(Customizer.withDefaults())
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            .sessionManagement(session ->
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
 
-            .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/api/auth/**"
+                        ).permitAll()
 
-                    // Allow browser preflight requests
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(
+                                "/error"
+                        ).permitAll()
 
-                    // Public APIs
-                    .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated())
 
-                    // Secure all remaining APIs
-                    .anyRequest().authenticated())
+                .addFilterBefore(
+                        jwtFilter,
+                        UsernamePasswordAuthenticationFilter.class)
 
-            .httpBasic(Customizer.withDefaults());
-
-        http.addFilterBefore(
-                jwtFilter,
-                UsernamePasswordAuthenticationFilter.class);
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
@@ -64,5 +63,4 @@ public class SecurityConfig {
 
         return configuration.getAuthenticationManager();
     }
-
 }
